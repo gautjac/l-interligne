@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: #eae6dc;
+  /* faint newsprint grain + a cool vignette */
+  background-image:
+    radial-gradient(circle at 15% 8%, rgba(34, 32, 29, 0.05), transparent 40%),
+    radial-gradient(circle at 88% 96%, rgba(195, 61, 46, 0.05), transparent 46%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-attachment: fixed;
+  color: #22201d;
+  font-family: "Newsreader", Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* A hand-underline for emphasis in the marked-up view */
+.grease-underline {
+  background-image: linear-gradient(transparent 62%, rgba(195, 61, 46, 0.28) 62%);
+  background-repeat: no-repeat;
+}
+
+/* focus ring in the app palette */
+.ring-app:focus-visible {
+  outline: 2px solid #c33d2e;
+  outline-offset: 2px;
+}
+
+/* custom scrollbar, subtle */
+textarea::-webkit-scrollbar,
+.scroll-thin::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+textarea::-webkit-scrollbar-thumb,
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: rgba(34, 32, 29, 0.22);
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Print: clean marked sides ───────────────────────────────────────── */
+@media print {
+  @page {
+    margin: 18mm 16mm;
+  }
+  body {
+    background: #ffffff !important;
+    background-image: none !important;
+    color: #000000;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-page {
+    box-shadow: none !important;
+    border: none !important;
+    background: #ffffff !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .print-beat {
+    break-inside: avoid;
+  }
+  a::after {
+    content: "" !important;
+  }
+  /* Tag colours print as solid ink even without "print backgrounds" on */
+  .tag-print {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
